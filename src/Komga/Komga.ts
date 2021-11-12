@@ -48,7 +48,7 @@ import { KomgaCommon } from './KomgaCommon'
 //  - search method which is called even if the user search in an other source
 
 export const KomgaInfo: SourceInfo = {
-    version: '0.0.5',
+    version: '0.0.6',
     name: 'Komga',
     icon: 'icon.png',
     author: 'Kussie',
@@ -440,7 +440,7 @@ export class Komga extends Source {
                             tiles.push(createMangaTile({
                                 id: serie.seriesId,
                                 title: createIconText({ text: serie.metadata.title }),
-                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
+                                image: `${komgaAPI}/books/${serie.id}/thumbnail`,
                             }))
                         }
                         section.items = tiles
@@ -464,7 +464,7 @@ export class Komga extends Source {
                             tiles.push(createMangaTile({
                                 id: serie.seriesId,
                                 title: createIconText({ text: serie.metadata.title }),
-                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
+                                image: `${komgaAPI}/books/${serie.id}/thumbnail`,
                             }))
                         }
                         section.items = tiles
