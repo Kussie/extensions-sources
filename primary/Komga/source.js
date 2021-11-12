@@ -2405,7 +2405,7 @@ exports.KomgaInfo = {
     icon: 'icon.png',
     author: 'Kussie',
     authorWebsite: 'https://github.com/Kussie',
-    description: 'Extension that pulls manga from a Komga server',
+    description: 'Paperback extension for self hosted Komga',
     contentRating: paperback_extensions_common_1.ContentRating.EVERYONE,
     websiteBaseURL: 'https://komga.org',
     sourceTags: [
