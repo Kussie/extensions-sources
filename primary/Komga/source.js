@@ -2700,22 +2700,23 @@ class Komga extends paperback_extensions_common_1.Source {
         for (const section of sections) {
             // Let the app load empty tagSections
             sectionCallback(section);
+            let request = null;
             if (section.id === 'ondeck') {
-                const request = createRequestObject({
+                request = createRequestObject({
                     url: `${komgaAPI}/books/ondeck`,
                     param: '?page=0&size=20&deleted=false',
                     method: 'GET',
                 });
             }
             else if (section.id === 'continue') {
-                const request = createRequestObject({
+                request = createRequestObject({
                     url: `${komgaAPI}/books`,
                     param: '?page=0&size=20&deleted=false&sort=readProgress.readDate%2Cdesc&read_status=IN_PROGRESS',
                     method: 'GET',
                 });
             }
             else {
-                const request = createRequestObject({
+                request = createRequestObject({
                     url: `${komgaAPI}/series/${section.id}`,
                     param: '?page=0&size=20&deleted=false',
                     method: 'GET',
