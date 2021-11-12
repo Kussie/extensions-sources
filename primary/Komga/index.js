@@ -2400,7 +2400,7 @@ const KomgaCommon_1 = require("./KomgaCommon");
 //  - getTags() which is called on the homepage
 //  - search method which is called even if the user search in an other source
 exports.KomgaInfo = {
-    version: '0.0.1',
+    version: '0.0.2',
     name: 'Komga',
     icon: 'icon.png',
     author: 'Kussie',
@@ -2678,12 +2678,12 @@ class Komga extends paperback_extensions_common_1.Source {
             createHomeSection({
                 id: 'ondeck',
                 title: 'On Deck',
-                view_more: true,
+                view_more: false,
             }),
             createHomeSection({
                 id: 'continue',
                 title: 'Continue Reading',
-                view_more: true,
+                view_more: false,
             }),
             createHomeSection({
                 id: 'new',
