@@ -440,7 +440,7 @@ export class Komga extends Source {
                             tiles.push(createMangaTile({
                                 id: serie.seriesId,
                                 title: createIconText({ text: serie.metadata.title }),
-                                image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                             }))
                         }
                         section.items = tiles
@@ -464,7 +464,7 @@ export class Komga extends Source {
                             tiles.push(createMangaTile({
                                 id: serie.seriesId,
                                 title: createIconText({ text: serie.metadata.title }),
-                                image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                             }))
                         }
                         section.items = tiles
