@@ -48,7 +48,7 @@ import { KomgaCommon } from './KomgaCommon'
 //  - search method which is called even if the user search in an other source
 
 export const KomgaInfo: SourceInfo = {
-    version: '0.0.1',
+    version: '0.0.2',
     name: 'Komga',
     icon: 'icon.png',
     author: 'Kussie',
@@ -398,12 +398,12 @@ export class Komga extends Source {
             createHomeSection({
                 id: 'ondeck',
                 title: 'On Deck',
-                view_more: true,
+                view_more: false,
             }),
             createHomeSection({
                 id: 'continue',
                 title: 'Continue Reading',
-                view_more: true,
+                view_more: false,
             }),
             createHomeSection({
                 id: 'new',
