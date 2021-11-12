@@ -2400,11 +2400,11 @@ const KomgaCommon_1 = require("./KomgaCommon");
 //  - getTags() which is called on the homepage
 //  - search method which is called even if the user search in an other source
 exports.KomgaInfo = {
-    version: '1.2.2',
+    version: '0.0.1',
     name: 'Komga',
     icon: 'icon.png',
-    author: 'Lemon',
-    authorWebsite: 'https://github.com/FramboisePi',
+    author: 'Kussie',
+    authorWebsite: 'https://github.com/Kussie',
     description: 'Extension that pulls manga from a Komga server',
     contentRating: paperback_extensions_common_1.ContentRating.EVERYONE,
     websiteBaseURL: 'https://komga.org',
@@ -2503,8 +2503,8 @@ class Komga extends paperback_extensions_common_1.Source {
     }
     async getTags() {
         // This function is called on the homepage and should not throw if the server is unavailable
-        // We define two types of tags: 
-        // - `genre` 
+        // We define two types of tags:
+        // - `genre`
         // - `tag`
         // To be able to make the difference between theses types, we append `genre-` or `tag-` at the beginning of the tag id
         // TODO: we could add: collections
@@ -2740,7 +2740,7 @@ class Komga extends paperback_extensions_common_1.Source {
     }
     async filterUpdatedManga(mangaUpdatesFoundCallback, time, ids) {
         const komgaAPI = await this.getKomgaAPI();
-        // We make requests of PAGE_SIZE titles to `series/updated/` until we got every titles 
+        // We make requests of PAGE_SIZE titles to `series/updated/` until we got every titles
         // or we got a title which `lastModified` metadata is older than `time`
         let page = 0;
         const foundIds = [];
