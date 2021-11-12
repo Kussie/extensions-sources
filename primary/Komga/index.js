@@ -2400,7 +2400,7 @@ const KomgaCommon_1 = require("./KomgaCommon");
 //  - getTags() which is called on the homepage
 //  - search method which is called even if the user search in an other source
 exports.KomgaInfo = {
-    version: '0.0.4',
+    version: '0.0.2',
     name: 'Komga',
     icon: 'icon.png',
     author: 'Kussie',
@@ -2714,7 +2714,7 @@ class Komga extends paperback_extensions_common_1.Source {
                         tiles.push(createMangaTile({
                             id: serie.seriesId,
                             title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                            image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                         }));
                     }
                     section.items = tiles;
@@ -2735,7 +2735,7 @@ class Komga extends paperback_extensions_common_1.Source {
                         tiles.push(createMangaTile({
                             id: serie.seriesId,
                             title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                            image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                         }));
                     }
                     section.items = tiles;
@@ -2756,7 +2756,7 @@ class Komga extends paperback_extensions_common_1.Source {
                         tiles.push(createMangaTile({
                             id: serie.id,
                             title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                            image: `${komgaAPI}/series/${serie.id}/thumbnail`,
                         }));
                     }
                     section.items = tiles;
