@@ -48,11 +48,11 @@ import { KomgaCommon } from './KomgaCommon'
 //  - search method which is called even if the user search in an other source
 
 export const KomgaInfo: SourceInfo = {
-    version: '1.2.2',
+    version: '0.0.1',
     name: 'Komga',
     icon: 'icon.png',
-    author: 'Lemon',
-    authorWebsite: 'https://github.com/FramboisePi',
+    author: 'Kussie',
+    authorWebsite: 'https://github.com/Kussie',
     description: 'Extension that pulls manga from a Komga server',
     contentRating: ContentRating.EVERYONE,
     websiteBaseURL: 'https://komga.org',
@@ -79,7 +79,7 @@ export const parseMangaStatus = (komgaStatus: string) => {
             return MangaStatus.ONGOING
         case 'HIATUS':
             return MangaStatus.ONGOING
-    } 
+    }
     return MangaStatus.ONGOING
 }
 
@@ -89,10 +89,10 @@ export const capitalize = (tag: string) => {
 
 export class KomgaRequestInterceptor implements RequestInterceptor {
     /*
-    Requests made to Komga must use a Basic Authentication. 
+    Requests made to Komga must use a Basic Authentication.
     This interceptor adds an authorization header to the requests.
 
-    NOTE: The authorization header can be overridden by the request 
+    NOTE: The authorization header can be overridden by the request
     */
 
     stateManager: SourceStateManager
@@ -177,8 +177,8 @@ export class Komga extends Source {
     override async getTags(): Promise<TagSection[]> {
         // This function is called on the homepage and should not throw if the server is unavailable
 
-        // We define two types of tags: 
-        // - `genre` 
+        // We define two types of tags:
+        // - `genre`
         // - `tag`
         // To be able to make the difference between theses types, we append `genre-` or `tag-` at the beginning of the tag id
 
@@ -370,7 +370,7 @@ export class Komga extends Source {
 
     override async getSearchResults(searchQuery: SearchRequest, metadata: any): Promise<PagedResults> {
         // This function is also called when the user search in an other source. It should not throw if the server is unavailable.
-        
+
         return KomgaCommon.searchRequest(searchQuery, metadata, this.requestManager, this.stateManager, PAGE_SIZE)
     }
 
@@ -478,7 +478,7 @@ export class Komga extends Source {
 
         const komgaAPI = await this.getKomgaAPI()
 
-        // We make requests of PAGE_SIZE titles to `series/updated/` until we got every titles 
+        // We make requests of PAGE_SIZE titles to `series/updated/` until we got every titles
         // or we got a title which `lastModified` metadata is older than `time`
         let page = 0
         const foundIds: string[] = []
