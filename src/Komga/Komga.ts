@@ -396,13 +396,23 @@ export class Komga extends Source {
         // The source define two homepage sections: new and latest
         const sections = [
             createHomeSection({
+                id: 'ondeck',
+                title: 'On Deck',
+                view_more: true,
+            }),
+            createHomeSection({
+                id: 'continue',
+                title: 'Continue Reading',
+                view_more: true,
+            }),
+            createHomeSection({
                 id: 'new',
-                title: 'Recently added series',
+                title: 'Recently Added Series',
                 view_more: true,
             }),
             createHomeSection({
                 id: 'updated',
-                title: 'Recently updated series',
+                title: 'Recently Updated Series',
                 view_more: true,
             }),
         ]
@@ -413,29 +423,82 @@ export class Komga extends Source {
             // Let the app load empty tagSections
             sectionCallback(section)
 
-            const request = createRequestObject({
-                url: `${komgaAPI}/series/${section.id}`,
-                param: '?page=0&size=20&deleted=false',
-                method: 'GET',
-            })
-
-            // Get the section data
-            promises.push(
-                this.requestManager.schedule(request, 1).then(data => {
-                    const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data
-
-                    const tiles = []
-                    for (const serie of result.content) {
-                        tiles.push(createMangaTile({
-                            id: serie.id,
-                            title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/series/${serie.id}/thumbnail`,
-                        }))
-                    }
-                    section.items = tiles
-                    sectionCallback(section)
+            if (section.id === 'ondeck') {
+                const request = createRequestObject({
+                    url: `${komgaAPI}/books/ondeck`,
+                    param: '?page=0&size=20&deleted=false',
+                    method: 'GET',
                 })
-            )
+
+                // Get the section data
+                promises.push(
+                    this.requestManager.schedule(request, 1).then(data => {
+                        const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data
+
+                        const tiles = []
+                        for (const serie of result.content) {
+                            tiles.push(createMangaTile({
+                                id: serie.seriesId,
+                                title: createIconText({ text: serie.metadata.title }),
+                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
+                            }))
+                        }
+                        section.items = tiles
+                        sectionCallback(section)
+                    })
+                )
+            } else if (section.id === 'continue') {
+                const request = createRequestObject({
+                    url: `${komgaAPI}/books`,
+                    param: '?page=0&size=20&deleted=false&sort=readProgress.readDate%2Cdesc&read_status=IN_PROGRESS',
+                    method: 'GET',
+                })
+
+                // Get the section data
+                promises.push(
+                    this.requestManager.schedule(request, 1).then(data => {
+                        const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data
+
+                        const tiles = []
+                        for (const serie of result.content) {
+                            tiles.push(createMangaTile({
+                                id: serie.seriesId,
+                                title: createIconText({ text: serie.metadata.title }),
+                                image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
+                            }))
+                        }
+                        section.items = tiles
+                        sectionCallback(section)
+                    })
+                )
+
+            } else {
+                const request = createRequestObject({
+                    url: `${komgaAPI}/series/${section.id}`,
+                    param: '?page=0&size=20&deleted=false',
+                    method: 'GET',
+                })
+
+                // Get the section data
+                promises.push(
+                    this.requestManager.schedule(request, 1).then(data => {
+                        const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data
+
+                        const tiles = []
+                        for (const serie of result.content) {
+                            tiles.push(createMangaTile({
+                                id: serie.id,
+                                title: createIconText({ text: serie.metadata.title }),
+                                image: `${komgaAPI}/series/${serie.id}/thumbnail`,
+                            }))
+                        }
+                        section.items = tiles
+                        sectionCallback(section)
+                    })
+                )
+            }
+
+
         }
 
         // Make sure the function completes
