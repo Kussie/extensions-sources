@@ -2714,7 +2714,7 @@ class Komga extends paperback_extensions_common_1.Source {
                         tiles.push(createMangaTile({
                             id: serie.seriesId,
                             title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                            image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                         }));
                     }
                     section.items = tiles;
@@ -2735,7 +2735,7 @@ class Komga extends paperback_extensions_common_1.Source {
                         tiles.push(createMangaTile({
                             id: serie.seriesId,
                             title: createIconText({ text: serie.metadata.title }),
-                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                            image: `${komgaAPI}/series/${serie.seriesId}/thumbnail`,
                         }));
                     }
                     section.items = tiles;
