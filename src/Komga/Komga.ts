@@ -53,7 +53,7 @@ export const KomgaInfo: SourceInfo = {
     icon: 'icon.png',
     author: 'Kussie',
     authorWebsite: 'https://github.com/Kussie',
-    description: 'Extension that pulls manga from a Komga server',
+    description: 'Paperback extension for self hosted Komga',
     contentRating: ContentRating.EVERYONE,
     websiteBaseURL: 'https://komga.org',
     sourceTags: [
