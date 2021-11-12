@@ -2400,7 +2400,7 @@ const KomgaCommon_1 = require("./KomgaCommon");
 //  - getTags() which is called on the homepage
 //  - search method which is called even if the user search in an other source
 exports.KomgaInfo = {
-    version: '0.0.3',
+    version: '0.0.4',
     name: 'Komga',
     icon: 'icon.png',
     author: 'Kussie',
@@ -2700,42 +2700,69 @@ class Komga extends paperback_extensions_common_1.Source {
         for (const section of sections) {
             // Let the app load empty tagSections
             sectionCallback(section);
-            let request = null;
             if (section.id === 'ondeck') {
-                request = createRequestObject({
+                const request = createRequestObject({
                     url: `${komgaAPI}/books/ondeck`,
                     param: '?page=0&size=20&deleted=false',
                     method: 'GET',
                 });
+                // Get the section data
+                promises.push(this.requestManager.schedule(request, 1).then(data => {
+                    const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
+                    const tiles = [];
+                    for (const serie of result.content) {
+                        tiles.push(createMangaTile({
+                            id: serie.seriesId,
+                            title: createIconText({ text: serie.metadata.title }),
+                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                        }));
+                    }
+                    section.items = tiles;
+                    sectionCallback(section);
+                }));
             }
             else if (section.id === 'continue') {
-                request = createRequestObject({
+                const request = createRequestObject({
                     url: `${komgaAPI}/books`,
                     param: '?page=0&size=20&deleted=false&sort=readProgress.readDate%2Cdesc&read_status=IN_PROGRESS',
                     method: 'GET',
                 });
+                // Get the section data
+                promises.push(this.requestManager.schedule(request, 1).then(data => {
+                    const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
+                    const tiles = [];
+                    for (const serie of result.content) {
+                        tiles.push(createMangaTile({
+                            id: serie.seriesId,
+                            title: createIconText({ text: serie.metadata.title }),
+                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                        }));
+                    }
+                    section.items = tiles;
+                    sectionCallback(section);
+                }));
             }
             else {
-                request = createRequestObject({
+                const request = createRequestObject({
                     url: `${komgaAPI}/series/${section.id}`,
                     param: '?page=0&size=20&deleted=false',
                     method: 'GET',
                 });
+                // Get the section data
+                promises.push(this.requestManager.schedule(request, 1).then(data => {
+                    const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
+                    const tiles = [];
+                    for (const serie of result.content) {
+                        tiles.push(createMangaTile({
+                            id: serie.id,
+                            title: createIconText({ text: serie.metadata.title }),
+                            image: `${komgaAPI}/books/${serie.id}/thumbnail`,
+                        }));
+                    }
+                    section.items = tiles;
+                    sectionCallback(section);
+                }));
             }
-            // Get the section data
-            promises.push(this.requestManager.schedule(request, 1).then(data => {
-                const result = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
-                const tiles = [];
-                for (const serie of result.content) {
-                    tiles.push(createMangaTile({
-                        id: (section.id === 'ondeck' || section.id === 'continue') ? serie.seriesId : serie.id,
-                        title: createIconText({ text: serie.metadata.title }),
-                        image: `${komgaAPI}/books/${serie.id}/thumbnail`,
-                    }));
-                }
-                section.items = tiles;
-                sectionCallback(section);
-            }));
         }
         // Make sure the function completes
         await Promise.all(promises);
